@@ -1,0 +1,91 @@
+CREATE DATABASE LabB1
+use LabB1
+
+--Creating a 'Person' table 
+CREATE TABLE Person(
+Id int,
+Name varchar(20),
+Address varchar(50),
+Phone varchar(14)
+);
+
+--Inserting some values into 'Person' table
+INSERT into Person VALUES(1, 'Hansen', 'Dhaka', '01553431265');
+INSERT into Person VALUES(2, 'Sovon', 'Khulna', '01611456541');
+INSERT into Person VALUES(3, 'Arif', 'Manikgonj', '01611456122');
+INSERT into Person VALUES(4, 'Zahid', 'Dhaka', '01611123654');
+INSERT into Person VALUES(5, 'Jabir', 'Cumilla', '01456987611');
+
+
+--Creating a 'Customer' table 
+CREATE TABLE Customer
+(
+CustomerId int IDENTITY(1,1) PRIMARY KEY,
+LastName varchar(50) NOT NULL,
+FirstName varchar(50) NOT NULL,
+AreaCode int NULL,
+Address varchar(200) NULL,
+Birthday date NOT NULL,
+Salary decimal(7,2) NULL,
+Phone varchar(11) NOT NULL
+)
+
+--Inserting some values into 'Customer' table
+INSERT into Customer VALUES('Hasan', 'Arif', 1214, 'Dhaka', '1998-02-05', '90000.00', '15555555555');
+INSERT into Customer VALUES('F', 'Zahid', 1214, 'Dhaka', '1998-02-05', NULL, '15555555555');
+INSERT into Customer VALUES('', 'Ayon', 1214, 'Dhaka', '' , '', '15555555555');
+
+
+--Creating a 'Order1' table 
+CREATE TABLE Order1
+(OrderId int IDENTITY (100, 1) PRIMARY KEY,
+CustomerId int NOT NULL FOREIGN KEY REFERENCES CUSTOMER (CustomerId),
+OrderDate date NULL,
+OrderAmount money NOT NULL,
+)
+
+----Inserting some values into 'Order1' table
+INSERT into Order1 VALUES('5', '2018-12-18', 102.45);
+INSERT into Order1 VALUES('5', '2018-12-18', 5039);
+INSERT into Order1 VALUES('7', '2018-12-18', 1234.45);
+INSERT into Order1 VALUES('3', '2019-12-18', NULL);
+INSERT into Order1 VALUES('10', '2019-12-18', 4315.45);
+
+
+--Showing some columns or all colume(*) form a table
+SELECT FirstName,LastName FROM Customer
+SELECT * FROM Customer
+
+
+--Showing unique rows againt one or multiple column
+SELECT DISTINCT FirstName FROM Customer
+SELECT DISTINCT * FROM Customer
+
+
+--Creating a new table, which is copy from another
+SELECT * INTO Clients FROM Customer
+SELECT * FROM Clients
+
+--Creating a new table, where some row are copy from another
+SELECT FirstName,LastName INTO Clients_Custom FROM Customer
+SELECT * FROM Clients_Custom
+
+
+--Delete complete table
+DROP TABLE Clients_Custom
+
+--Delete table data
+TRUNCATE TABLE Clients
+
+
+--Adding a column
+ALTER TABLE Person ADD DOB date
+SELECT * FROM Person
+
+--Changing datatype of a column
+ALTER TABLE Person
+ALTER COLUMN DOB datetime
+
+--Delete column
+ALTER TABLE Person
+DROP COLUMN DOB

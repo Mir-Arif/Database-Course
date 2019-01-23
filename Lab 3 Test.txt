@@ -1,0 +1,89 @@
+CREATE DATABASE Test01
+use Test01
+
+
+--Creating a 'SALESMAN' table 
+CREATE TABLE SALESMAN(
+SalesmanId int IDENTITY(1001,1) PRIMARY KEY,
+FirstName varchar(50) NOT NULL,
+LastName varchar(50) NOT NULL,
+Area varchar(15) NOT NULL,
+YearOfService int NOT NULL,
+Salary decimal(5,2)
+);
+
+--Creating a 'CUSTOMER' table 
+CREATE TABLE CUSTOMER(
+CustomerId int IDENTITY(2001,1) PRIMARY KEY,
+CustomerName varchar(50) NOT NULL,
+Location varchar(15) NOT NULL,
+PinCode decimal(8),
+Class char DEFAULT 'A',
+);
+
+--Creating a 'SALESORDER' table 
+CREATE TABLE SALESORDER(
+OrderId int IDENTITY(3001,1) PRIMARY KEY,
+CustomerId int NOT NULL FOREIGN KEY REFERENCES CUSTOMER (CustomerId),
+SalesmanId int NOT NULL FOREIGN KEY REFERENCES SALESMAN (SalesmanId),
+Quantity decimal(5),
+OrderDate Date NOT NULL,
+OrderAmount decimal(8,2) CHECK (OrderAmount>-1)
+);
+
+--Inserting some values into 'SALESMAN' table
+INSERT into SALESMAN VALUES('Nicholas', 'Graham', 'Mirpur', 5, '200.00');
+INSERT into SALESMAN VALUES('Rachel', 'Wood', 'Dhanomndi', 9, '400.00');
+INSERT into SALESMAN VALUES('Emily', 'Blunt', 'Shantinagar', 8, '350.00');
+INSERT into SALESMAN VALUES('Robert', 'Smith', 'Gulshan', 11, '500.00');
+INSERT into SALESMAN VALUES('Amy', 'Watson', 'Banani', 3, '150.00');
+SELECT * FROM SALESMAN
+
+--Inserting some values into 'CUSTOMER' table
+INSERT into CUSTOMER VALUES('Jannat Ahmed', 'Banani', 28612940, 'A');
+INSERT into CUSTOMER VALUES('Karim Rahman', 'Gulshan', 67289016, 'B');
+INSERT into CUSTOMER VALUES('Reema Chowdhury', 'Badda', 13450983, 'A');
+INSERT into CUSTOMER VALUES('Mrittika Hassan', 'Gulshan', 53429876, 'A');
+INSERT into CUSTOMER VALUES('Siam Ishtiak', 'Mirpur', 22780925, 'C');
+SELECT * FROM CUSTOMER
+
+--Inserting some values into 'SALESORDER' table
+TRUNCATE TABLE SALESORDER
+INSERT into SALESORDER VALUES(2001, 1005, 2, '2018-12-24', 1000.50);
+INSERT into SALESORDER VALUES(2002, 1006, 1, '2018-11-18', 200.75);
+INSERT into SALESORDER VALUES(2003, 1007, 3, '2019-01-01', 5000.88);
+INSERT into SALESORDER VALUES(2004, 1008, 4, '2019-01-10', 500.45);
+INSERT into SALESORDER VALUES(2005, 1009, 6, '2019-01-07', 7000);
+SELECT * FROM SALESORDER
+
+--Query1
+SELECT SalesmanId as 'Salesman Identification', FirstName+' '+LastName as 'Salesman Name', Area as 'City', Salary as 'Salary Earned' from SALESMAN;
+
+--Query2
+SELECT SalesmanId, FirstName, Lastname from SALESMAN where Area = 'Dhanomndi'
+
+--Query3
+SELECT CustomerId, CustomerName from CUSTOMER where Class = 'A'
+
+--Query4
+
+
+--Query5
+UPDATE CUSTOMER set Location='Bashaboo' where CustomerName='Karim Rahman'
+
+--query6
+SELECT CustomerId, CustomerName from CUSTOMER where Location = 'Gulshan'
+
+--query7
+SELECT Firstname, LastName from SALESMAN where Salary>200.00;
+
+--query8
+UPDATE SALESORDER set OrderAmount='50.00' where OrderId=3004;
+
+
+
+
+
+
+
+--done
