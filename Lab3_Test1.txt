@@ -79,11 +79,3 @@ SELECT Firstname, LastName from SALESMAN where Salary>200.00;
 
 --query8
 UPDATE SALESORDER set OrderAmount='50.00' where OrderId=3004;
-
-
-
-
-
-
-
---done
