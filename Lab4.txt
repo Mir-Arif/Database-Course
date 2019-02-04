@@ -1,0 +1,54 @@
+create database Lab4;
+
+CREATE TABLE CUSTOMER
+(
+	CustomerId int IDENTITY(1,1) PRIMARY KEY,
+	Name varchar(50) NOT NULL,
+	Age int NOT NULL CHECK (Age >= 18),
+	Address varchar(200) NULL  DEFAULT  'Dhaka',
+	Salary decimal(18,2) NULL
+)
+
+INSERT INTO CUSTOMER (Name, Age, Address, Salary) 
+VALUES ('Rahim', 32, 'Gulshan',2000.35),
+       ('Karim', 25, 'Dhanmondi',1500.22),
+       ('Hashim', 23, 'Mottijheel',2000.00),
+       ('Khan', 25, 'Tejgaon',6500.00),
+       ('Rahman', 27, 'Wari',8500.00),
+       ('Mehedi', 22, 'Mohammadpur',4500.00),
+       ('Kashim', 24, 'Kakrail',10000.00),
+       ('Kazi', 22, 'Kakrail',1000.00)
+
+
+SELECT * FROM CUSTOMER;
+
+--Whose salary starts with 200
+SELECT * FROM CUSTOMER WHERE Salary LIKE '200%';
+
+--Whose name starts with 'Ka'
+SELECT * FROM CUSTOMER WHERE Name LIKE 'Ka%';
+
+--Whose 2nd letter of address in 'h'
+SELECT * FROM CUSTOMER WHERE Address LIKE '_h%';
+
+--Only show whose age is 23,27,32
+SELECT * FROM CUSTOMER WHERE Age IN (23, 27, 32);
+
+--Only show whose age from 23 to 32
+SELECT * FROM CUSTOMER WHERE Age BETWEEN 23 AND 32;
+
+--Whise address ends with 'n' or starts with 'D'
+SELECT * FROM CUSTOMER WHERE Address Like'%n' or Address Like 'D%';
+
+--List of customer except 24 aged people
+SELECT * FROM CUSTOMER WHERE AGE NOT IN (24);
+
+--Showing the top peoples(without sort)
+SELECT TOP 50 PERCENT * FROM CUSTOMER ;
+
+SELECT AGE, MAX(SALARY) AS 'MAX_SALARY' FROM CUSTOMER GROUP BY Age;
+
+SELECT NAME, AGE, MAX(SALARY)AS 'MAX_SALARY' FROM CUSTOMER GROUP BY Age, Name HAVING Name LIKE 'KA%';
+
+
+
