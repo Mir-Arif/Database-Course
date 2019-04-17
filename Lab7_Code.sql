@@ -162,7 +162,7 @@ CONSTRAINT pk_customer PRIMARY KEY(CustomerID, LastName)
 
 select * from customer;
 
---Eemoving constrain
+--Removing constrain
 ALTER table Customer DROP CONSTRAINT pk_customer;
 
 --Another way to add constrain for city column
